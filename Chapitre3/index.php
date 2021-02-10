@@ -4,7 +4,7 @@ require_once("db_connection.php");
 
 
 ////////////////////////////////////////////
-///		Upload et sauvegarde des images 
+/////	Upload et sauvegarde des images 
 $submit = filter_input(INPUT_POST, 'submit');
 $extensionsAllowed = array("jpeg", "jpg", "png", "bmp", "gif");
 
