@@ -2,26 +2,44 @@
 session_start();
 require_once("db_connection.php");
 
-// $submit = filter_input(INPUT_POST, 'submit');
+$submit = filter_input(INPUT_POST, 'submit');
 
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES['image']['name']);
-$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+$extensionsAllowed = array("jpeg", "jpg", "png", "bmp", "gif");
 
-if ($_POST['submit']) {
-	$image = $_FILES['image']['name'];
+if ($submit) {
 
-	if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-		echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-	} else {
+	foreach ($_FILES["image"]["tmp_name"] as $key => $tmp_name) {
+
 		$typeMedia = "image";
 
-		if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-			$insertImage->execute(array($typeMedia, $image, date('Y-m-d H:i:s')));
-			header("Location: index.php");
+		$target_dir = "uploads/";
+
+		$fileName = $_FILES["image"]["name"][$key];
+		$fileTempName = $_FILES["image"]["tmp_name"][$key];
+
+		$extensionFile = pathinfo($fileName, PATHINFO_EXTENSION);
+
+
+		if (in_array($extensionFile, $extensionsAllowed)) {
+
+			if (!file_exists($target_dir . $fileName)) {
+
+				move_uploaded_file($_FILES["image"]["tmp_name"][$key], $target_dir . $fileName);
+				$insertImage->execute(array($typeMedia, $fileName, date('Y-m-d H:i:s')));
+				header("Location: index.php");
+				
+			} else {
+				echo "Error: the files you're trying to upload already exist in the uploads directory";
+			}
+		} else {
+			echo "Sorry, only JPG, JPEG, BMP, PNG & GIF files are allowed.";
 		}
 	}
 }
+
+
+
+
 ?>
 
 <!DOCTYPE html>
