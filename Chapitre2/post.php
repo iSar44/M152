@@ -93,7 +93,7 @@ require_once("db_connection.php");
 
 										<input type="submit" name="submit" value="Post" class="btn btn-primary pull-right" />
 										<ul class="list-inline">
-											<input type="file" name="image[]" class="form-control-file" id="img" accept=".jpg,.png,.gif,.bmp" multiple/>
+											<input type="file" name="image[]" class="form-control-file" id="img" accept=".jpg,.jpeg,.png,.gif,.bmp" multiple/>
 										</ul>
 									</form>
 

@@ -10,8 +10,6 @@ if ($submit) {
 
 	foreach ($_FILES["image"]["tmp_name"] as $key => $tmp_name) {
 
-		$typeMedia = "image";
-
 		$target_dir = "uploads/";
 
 		$fileName = $_FILES["image"]["name"][$key];
@@ -22,13 +20,16 @@ if ($submit) {
 
 		if (in_array($extensionFile, $extensionsAllowed)) {
 
+			$typeMedia = "image";
+
 			if (!file_exists($target_dir . $fileName)) {
 
 				move_uploaded_file($_FILES["image"]["tmp_name"][$key], $target_dir . $fileName);
 				$insertImage->execute(array($typeMedia, $fileName, date('Y-m-d H:i:s')));
 				header("Location: index.php");
-				
+
 			} else {
+				header("Location: post.php");
 				echo "Error: the files you're trying to upload already exist in the uploads directory";
 			}
 		} else {
@@ -123,7 +124,7 @@ if ($submit) {
 								<div class="col-sm-5">
 
 									<div class="panel panel-default">
-										<div class="panel-thumbnail"><img src="assets/img/bg_5.jpg" class="img-responsive"></div>
+										<div class="panel-thumbnail"><img src="uploads/mcd_m306.png" class="img-responsive"></div>
 										<div class="panel-body">
 											<p class="lead">Urbanization</p>
 											<p>45 Followers, 13 Posts</p>
