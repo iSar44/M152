@@ -29,8 +29,13 @@ if ($submit) {
 				header("Location: index.php");
 
 			} else {
-				header("Location: post.php");
-				echo "Error: the files you're trying to upload already exist in the uploads directory";
+
+				$addUniqueid = uniqid();
+
+				move_uploaded_file($_FILES["image"]["tmp_name"][$key], $target_dir . $fileName);
+				$insertImage->execute(array($typeMedia, $addUniqueid . $fileName, date('Y-m-d H:i:s')));
+				header("Location: index.php");
+
 			}
 		} else {
 			echo "Sorry, only JPG, JPEG, BMP, PNG & GIF files are allowed.";
