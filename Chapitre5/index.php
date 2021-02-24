@@ -17,14 +17,14 @@ if ($submit) {
 		$fileName = $_FILES["image"]["name"][$key];
 		$fileTempName = $_FILES["image"]["tmp_name"][$key];
 
-		$extensionFile = pathinfo($fileName, PATHINFO_EXTENSION);
+		$extensionFile = $_FILES["image"]["type"][$key];
+		//$extensionFile = pathinfo($fileName, PATHINFO_EXTENSION);
 
+		if (in_array(substr($extensionFile, -3), $extensionsAllowed)) {
 
-		if (in_array($extensionFile, $extensionsAllowed)) {
-
-			if ($extensionFile == "mp4") {
+			if ($extensionFile == "video/mp4") {
 				$typeMedia = "video";
-			} else if ($extensionFile == "mp3") {
+			} else if ($extensionFile == "audio/mp3") {
 				$typeMedia = "audio";
 			} else {
 				$typeMedia = "image";
