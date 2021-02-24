@@ -27,14 +27,18 @@ if ($submit) {
 			if (!file_exists($target_dir . $fileName)) {
 
 				move_uploaded_file($_FILES["image"]["tmp_name"][$key], $target_dir . $fileName);
+				$conn->beginTransaction();
 				$insertImage->execute(array($typeMedia, $fileName, date('Y-m-d H:i:s')));
+				$conn->commit();
 				header("Location: index.php");
 			} else {
 
 				$addUniqueid = uniqid();
 
 				move_uploaded_file($_FILES["image"]["tmp_name"][$key], $target_dir . $addUniqueid . $fileName);
+				$conn->beginTransaction();
 				$insertImage->execute(array($typeMedia, $addUniqueid . $fileName, date('Y-m-d H:i:s')));
+				$conn->commit();
 				header("Location: index.php");
 			}
 		} else {
