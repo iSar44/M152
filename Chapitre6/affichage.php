@@ -25,6 +25,12 @@ while ($affichage = $imageChap5->fetch()) {
     
         echo '<p><img src="assets/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px"></p>';
         echo '</div>';
+        echo '<a style="color: red;" href="index.php?del=' . $affichage['idMedia'] . '">X</a>';
+        if($del == $affichage['idMedia']){
+            unlink($target_dir . $affichage['nomMedia']);
+            $deleteContent->execute(array($affichage['idMedia']));
+            header('Location: index.php');
+        }
         echo '</div>';
     
         echo '</div>';
