@@ -22,7 +22,7 @@ try {
 
 	$deleteContent = $conn->prepare('DELETE FROM `media` WHERE idMedia = ?;');
 
-	$modifImage = $conn->prepare('UPDATE `media` SET `nomMedia` = ?, modificationDate = ? WHERE `idMedia` = ? AND typeMedia = "image";');
+	$modifMedia = $conn->prepare('UPDATE `media` SET  `typeMedia` = ?, `nomMedia` = ?, modificationDate = ? WHERE `idMedia` = ?;');
 
     }
  catch(PDOException $e)

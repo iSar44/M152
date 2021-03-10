@@ -2,6 +2,8 @@
 session_start();
 require_once("db_connection.php");
 
+$edit = filter_input(INPUT_GET, 'edit', FILTER_SANITIZE_NUMBER_INT);
+
 ?>
 
 
@@ -80,28 +82,37 @@ require_once("db_connection.php");
 					<!-- content -->
 					<div class="row">
 
+						<!-- main col right -->
+						<div class="col-sm-7" style="visibility:hidden;">
+
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4><?= $edit == null ? "Write something here" : "Update your post"?></h4>
+								</div>
+							</div>
+
+						</div>
+
 						<!-- main col left -->
 						<div class="col-sm-5">
 
 							<div class="well">
-									<h4>What's New</h4>
+									<h4><?= $edit == null ? "What's New" : "Update this post" ?></h4>
 
 									<form action="index.php" method="POST" enctype="multipart/form-data">
 										<div class="form-group" style="padding:14px;">
-											<textarea class="form-control" placeholder="Write something here..."></textarea>
+											<textarea class="form-control" name="postEcrit" placeholder="<?= $edit == null ? "Write something here" : "Update your post"?>"></textarea>
 										</div>
 
-										<input type="submit" name="submit" value="Post" class="btn btn-primary pull-right" />
+										<input type="submit" name="submit" value="<?= $edit == null ? "Post" : "Update" ?>" class="btn btn-primary pull-right" />
 										<ul class="list-inline">
 											<input type="file" name="image[]" class="form-control-file" id="img" accept=".jpg,.jpeg,.png,.gif,.bmp,.mp3,.mp4" multiple/>
 										</ul>
+										<input type="text" name="replaceMedia" value="<?= $edit == null ? "" : $edit ?>"/>
 									</form>
 
 							</div>
 
-						</div>
-						<!-- main col right -->
-						<div class="col-sm-7">
 						</div>
 					</div>
 
