@@ -91,6 +91,8 @@ $edit = filter_input(INPUT_GET, 'edit', FILTER_SANITIZE_NUMBER_INT);
 								</div>
 							</div>
 
+							<div id="msg"></div>
+
 						</div>
 
 						<!-- main col left -->
@@ -99,7 +101,7 @@ $edit = filter_input(INPUT_GET, 'edit', FILTER_SANITIZE_NUMBER_INT);
 							<div class="well">
 								<h4><?= $edit == null ? "What's New" : "Update this post" ?></h4>
 
-								<form action="index.php" method="POST" enctype="multipart/form-data">
+								<!-- <form action="#" method="POST" enctype="multipart/form-data"> -->
 									<div class='preview'>
 										<img src="" id="img" width="100" height="100">
 									</div>
@@ -113,7 +115,7 @@ $edit = filter_input(INPUT_GET, 'edit', FILTER_SANITIZE_NUMBER_INT);
 										<input type="file" id="file" name="image[]" class="form-control-file" id="img" accept=".jpg,.jpeg,.png,.gif,.bmp,.mp3,.mp4" multiple />
 									</ul>
 									<input type="text" name="replaceMedia" value="<?= $edit == null ? "" : $edit ?>" />
-								</form>
+								<!-- </form> -->
 
 							</div>
 
@@ -146,37 +148,33 @@ $edit = filter_input(INPUT_GET, 'edit', FILTER_SANITIZE_NUMBER_INT);
 
 		<script type="text/javascript" src="assets/js/jquery.js"></script>
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 		<script type="text/javascript">
-			$(document).ready(function() {
-
-				$("#btn_upload").click(function() {
-
-					let fd = new FormData();
-					let files = $('#file')[0].files;
-
-					if (files.length > 0) {
-						fd.append('file', file[0]);
-
-						$.ajax({
-							url: 'post.php',
-							type: 'post',
-							data: fd,
-							contentType: false,
-							processData: false,
-							success: function(response) {
-								if (response != 0) {
-									$("#img").attr("src". response);
-									$(".preview img").show();
-								}else{
-									alert('file not uploaded');
-								}
-							},
-						});
-					}else{
-						alert("Please select a file.");
-					}
-				});
-			});
+			// $(document).ready(function(e) {
+			// 	$('#btn_upload').on('click', function() {
+			// 		var form_data = new FormData();
+			// 		var ins = document.getElementById('file').files.length;
+			// 		for (var x = 0; x < ins; x++) {
+			// 			form_data.append("image[]", document.getElementById('file').files[x]);
+			// 		}
+			// 		$.ajax({
+			// 			url: 'post.php', // point to server-side PHP script 
+			// 			// dataType: 'text', // what to expect back from the PHP script
+			// 			cache: false,
+			// 			contentType: false,
+			// 			processData: false,
+			// 			data: form_data,
+			// 			type: 'post',
+			// 			success: function(response) {
+			// 				$('#msg').html(response); // display success response from the PHP script
+			// 			},
+			// 			error: function(response) {
+			// 				$('#msg').html(response); // display error response from the PHP script
+			// 			}
+			// 		});
+			// 	});
+			// });
+			
 
 			$(document).ready(function() {
 				$('[data-toggle=offcanvas]').click(function() {
